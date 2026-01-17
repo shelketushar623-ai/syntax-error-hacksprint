@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Desi Buddy</title>
+</head>
+<body>
+  <h1>Desi Buddy</h1>
+  <p>Find a trusted local companion in India</p>
+  <div id="buddies"></div>
+
+  <script type="module">
+    import { initializeApp } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js";
+    import { getFirestore, collection, getDocs } from "https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js";
+
+    const firebaseConfig = {
+      apiKey: "PASTE_HERE",
+      authDomain: "PASTE_HERE",
+      projectId: "PASTE_HERE"
+    };
+
+    const app = initializeApp(firebaseConfig);
+    const db = getFirestore(app);
+
+    const buddiesDiv = document.getElementById("buddies");
+
+    const querySnapshot = await getDocs(collection(db, "buddies"));
+    querySnapshot.forEach((doc) => {
+      const data = doc.data();
+      buddiesDiv.innerHTML += `<p><b>${data.name}</b> - ${data.city} (${data.languages}) ⭐${data.rating}</p>`;
+    });
+  </script>
+</body>
+</html>
