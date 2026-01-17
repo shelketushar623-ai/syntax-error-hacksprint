@@ -22,6 +22,12 @@
     const db = getFirestore(app);
 
     const buddiesDiv = document.getElementById("buddies");
+    const querySnapshot = await getDocs(collection(db, "buddies"));
+querySnapshot.forEach((doc) => {
+  const data = doc.data();
+  buddiesDiv.innerHTML += `<p><b>${data.name}</b> - ${data.city} (${data.languages}) ⭐${data.rating}</p>`;
+});
+
 
     const querySnapshot = await getDocs(collection(db, "buddies"));
     querySnapshot.forEach((doc) => {
@@ -31,4 +37,5 @@
   </script>
 </body>
 </html>
+
 
